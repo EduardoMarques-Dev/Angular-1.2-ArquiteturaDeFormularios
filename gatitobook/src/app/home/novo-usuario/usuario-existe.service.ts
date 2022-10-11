@@ -1,7 +1,7 @@
+import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { NovoUsuarioService } from './novo-usuario.service';
-import { Injectable } from '@angular/core';
-import { switchMap, map, first } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { switchMap, map, first } from 'rxjs/operators';
 export class UsuarioExisteService {
   constructor(private novoUsuarioService: NovoUsuarioService) {}
 
-  usuarioJaExiste() {
+  usuarioJaExite() {
     return (control: AbstractControl) => {
       return control.valueChanges.pipe(
         switchMap((nomeUsuario) =>

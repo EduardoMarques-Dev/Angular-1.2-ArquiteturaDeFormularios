@@ -1,10 +1,10 @@
-import { Router } from '@angular/router';
-import { UsuarioExisteService } from './usuario-existe.service';
-import { NovoUsuarioService } from './novo-usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NovoUsuario } from './novo-usuario';
+import { Router } from '@angular/router';
 import { minusculoValidator } from './minusculo.validator';
+import { NovoUsuario } from './novo-usuario';
+import { NovoUsuarioService } from './novo-usuario.service';
+import { UsuarioExisteService } from './usuario-existe.service';
 import { usuarioSenhaIguaisValidator } from './usuario-senha-iguais.validator';
 
 @Component({
@@ -18,20 +18,20 @@ export class NovoUsuarioComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private novoUsuarioService: NovoUsuarioService,
-    private usuarioExisteService: UsuarioExisteService,
+    private usuarioExistenteServive: UsuarioExisteService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.novoUsuarioForm = this.formBuilder.group(
       {
+        email: ['', [Validators.required, Validators.email]],
+        fullName: ['', [Validators.required, Validators.minLength(4)]],
         userName: [
           '',
           [minusculoValidator],
-          [this.usuarioExisteService.usuarioJaExiste()],
+          [this.usuarioExistenteServive.usuarioJaExite()],
         ],
-        fullName: ['', [Validators.required, Validators.minLength(4)]],
-        email: ['', [Validators.required, Validators.email]],
         password: [''],
       },
       {
